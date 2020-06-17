@@ -1,0 +1,45 @@
+## 方法1
+
+import sys
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    widgets = QtWidgets.QMainWindow()                                # QWidgets 很多方法都没有，一般不用
+    ui = MainWin()
+    ui.main_ui.setupUi(widgets)
+    widgets.show()
+    ui.run_function()
+    sys.exit(app.exec_())
+    
+    
+## 方法2
+
+import sys
+class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):              # 继承了UI 和 QMainWindow
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent=parent)     
+        self.setupUi(self)                                           # 调用UI
+ 
+ 
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    w = MainWindow()                                                # 这个类具有了QMainWindow的属性，可以显示
+    w.show()
+    sys.exit(app.exec_())
+    
+    
+## 方法3
+
+import sys
+class MainWindow(QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super(MainWindow, self).__init__(parent=parent)
+        ui = Ui_MainWindow()                                         # 没有继承UI，所以无法调用。 故实例化UI
+        ui.setupUi(self)
+ 
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    w = MainWindow()
+    w.show()
+    sys.exit(app.exec_())
+
+
